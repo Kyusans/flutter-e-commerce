@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'package:ecommerce/home.dart';
+import 'package:ecommerce/session_storage.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -11,6 +15,38 @@ class _LoginState extends State<Login> {
   final TextEditingController _username = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  void login() async {
+    Map<String, String> jsonData = {
+      "username": _username.text,
+      "password": _password.text
+    };
+
+    Map<String, String> requestBody = {
+      "operation": "login",
+      "json": jsonEncode(jsonData),
+    };
+
+    var res = await http.post(
+      Uri.parse("${SessionStorage.url}users.php"),
+      body: requestBody,
+    );
+
+    if (res.body != "0") {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const Home(),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text("Invalid username or password"),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -47,7 +83,11 @@ class _LoginState extends State<Login> {
               width: double.infinity,
               height: 47,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    login();
+                  }
+                },
                 child: const Text("Login"),
               ),
             )
