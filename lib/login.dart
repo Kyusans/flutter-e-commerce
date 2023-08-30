@@ -15,6 +15,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _username = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _isObscure = true;
 
   void login() async {
     Map<String, String> jsonData = {
@@ -69,9 +70,18 @@ class _LoginState extends State<Login> {
             ),
             const SizedBox(height: 16),
             TextFormField(
+              obscureText: _isObscure,
               controller: _password,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _isObscure = !_isObscure;
+                    });
+                  },
+                  icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                ),
+                border: const OutlineInputBorder(),
                 labelText: "Password",
               ),
               validator: (value) {
@@ -90,7 +100,7 @@ class _LoginState extends State<Login> {
                 },
                 child: const Text("Login"),
               ),
-            )
+            ),
           ],
         ),
       ),

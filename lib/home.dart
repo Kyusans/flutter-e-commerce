@@ -1,3 +1,4 @@
+import 'package:ecommerce/side_bar.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -15,6 +16,7 @@ class _HomeState extends State<Home> {
         title: const Text('Home'),
       ),
       body: const Text("Home ni siya"),
+      drawer: const SideBar(),
     );
   }
 }
