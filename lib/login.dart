@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
-
+  static String routeName = "/login";
   @override
   _LoginState createState() => _LoginState();
 }
@@ -53,58 +53,60 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Container(
-        margin: const EdgeInsets.all(16),
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              controller: _username,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Username",
-              ),
-              validator: (value) {
-                return value == null || value.isEmpty ? "This field is required" : null;
-              },
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              obscureText: _isObscure,
-              controller: _password,
-              decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _isObscure = !_isObscure;
-                    });
-                  },
-                  icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+    return Scaffold(
+      body: Form(
+        key: _formKey,
+        child: Container(
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                controller: _username,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Username",
                 ),
-                border: const OutlineInputBorder(),
-                labelText: "Password",
-              ),
-              validator: (value) {
-                return value == null || value.isEmpty ? "This field is required" : null;
-              },
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              height: 47,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    login();
-                  }
+                validator: (value) {
+                  return value == null || value.isEmpty ? "This field is required" : null;
                 },
-                child: const Text("Login"),
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              TextFormField(
+                obscureText: _isObscure,
+                controller: _password,
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    },
+                    icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                  ),
+                  border: const OutlineInputBorder(),
+                  labelText: "Password",
+                ),
+                validator: (value) {
+                  return value == null || value.isEmpty ? "This field is required" : null;
+                },
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                height: 47,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      login();
+                    }
+                  },
+                  child: const Text("Login"),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
