@@ -34,6 +34,9 @@ class _LoginState extends State<Login> {
     );
 
     if (res.body != "0") {
+      var resBody = jsonDecode(res.body);
+      SessionStorage.name = resBody["user_fullname"];
+      SessionStorage.email = resBody["user_email"];
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => const Home(),

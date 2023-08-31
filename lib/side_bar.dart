@@ -1,3 +1,4 @@
+import 'package:ecommerce/session_storage.dart';
 import 'package:flutter/material.dart';
 
 class SideBar extends StatefulWidget {
@@ -13,9 +14,9 @@ class _SideBarState extends State<SideBar> {
     return Drawer(
       child: Column(
         children: [
-          const UserAccountsDrawerHeader(
-            accountName: Text("Joe"),
-            accountEmail: Text("Joe@gmail.com"),
+          UserAccountsDrawerHeader(
+            accountName: Text(SessionStorage.name),
+            accountEmail: Text(SessionStorage.email),
           ),
           ListTile(
             leading: const Icon(Icons.home),
