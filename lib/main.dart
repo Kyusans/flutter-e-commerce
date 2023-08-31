@@ -1,5 +1,6 @@
 import 'package:ecommerce/login.dart';
 import 'package:ecommerce/session_storage.dart';
+import 'package:ecommerce/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'theme.dart';
 
@@ -26,7 +27,7 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Login(),
+      body: SplashScreen(),
     );
   }
 }
